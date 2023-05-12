@@ -331,8 +331,8 @@ void Vector::erase(size_t pos, size_t count)
     }
     if (pos + count <= _size) {
         _size -= count;
-        _capacity = _size;
-        Value* tmp = new Value[_size];
+        //_capacity = _size;
+        Value* tmp = new Value[_capacity];
         int j = 0;
         for (int i = 0; i < _size + count; ++i)
         {   
@@ -349,8 +349,8 @@ void Vector::erase(size_t pos, size_t count)
     else {
         count = _size - pos;
         _size -= count;
-        _capacity = _size;
-        Value* tmp = new Value[_size];
+        //_capacity = _size;
+        Value* tmp = new Value[_capacity];
         for (int i = 0; i < _size; ++i)
         {
             tmp[i] = _data[i];
@@ -360,6 +360,12 @@ void Vector::erase(size_t pos, size_t count)
     }
 }
 
+void Vector::eraseBetween(size_t beginPos, size_t endPos)
+{
+    this->erase(beginPos, endPos - beginPos);
+}
+
+/*
 void Vector::eraseBetween(size_t beginPos, size_t endPos)
 {
     if (_size == 0)
@@ -398,7 +404,7 @@ void Vector::eraseBetween(size_t beginPos, size_t endPos)
         delete [] _data;
         _data = tmp;
     }
-}
+}*/
 
 long long Vector::find(const Value& value) const
 {
