@@ -521,7 +521,7 @@ Vector::~Vector()
 { 
     delete [] this->_data;
     _data = nullptr;
-    _size = 0;
-    _capacity = 0;
-    _multiplicativeCoef = 2.0f;
+    //_size = 0;
+    //_capacity = 0;
+    //_multiplicativeCoef = 2.0f;
 }
