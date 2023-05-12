@@ -255,6 +255,23 @@ void Vector::insert(const Value& value, size_t pos)
 
 void Vector::insert(const Value* values, size_t size, size_t pos)
 {
+    for (int i = 0; i < size; ++i)
+    {
+        this->insert(values[i], pos + i);
+    }
+}
+
+void Vector::insert(const Vector& vector, size_t pos)
+{
+    for (int i = 0; i < vector.size(); ++i)
+    {
+        this->insert(vector[i], pos + i);
+    }
+}
+
+/*
+void Vector::insert(const Value* values, size_t size, size_t pos)
+{
     _size += size;
     _capacity = _size;
     Value* tmp = new Value[_size];
@@ -300,6 +317,7 @@ void Vector::insert(const Vector& vector, size_t pos)
     delete [] _data;
     _data = tmp;    
 }
+*/
 
 void Vector::erase(size_t pos, size_t count)
 {
