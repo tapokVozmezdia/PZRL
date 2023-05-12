@@ -20,8 +20,8 @@ Vector::Vector(const Value* rawArray, const size_t size, float coef)
 {
     _multiplicativeCoef = coef;
     _size = size;
-    _capacity = size;
-    _data = new Value[_size];
+    _capacity = size * _multiplicativeCoef;
+    _data = new Value[_capacity];
     for (int i = 0; i < size; ++i)
     {
         //std::cout <<"To be put: "<< rawArray[i] << std::endl;
