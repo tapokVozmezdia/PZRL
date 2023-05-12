@@ -92,15 +92,10 @@ Vector::Vector(Vector&& other) noexcept
         _size = other.size();
         _capacity = other.capacity();
         _multiplicativeCoef = other._multiplicativeCoef;
-        _data = new Value[_capacity];
-        for (int i = 0; i < _size; ++i)
-        {
-            _data[i] = other[i];
-        }
+        this->_data = other._data;
         other._size = 0;
         other._capacity = 0;
         other._multiplicativeCoef = 2.0f;
-        delete [] other._data;
         other._data = nullptr;
     }
 }
