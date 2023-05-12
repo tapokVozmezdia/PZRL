@@ -92,10 +92,15 @@ Vector::Vector(Vector&& other) noexcept
         _size = other.size();
         _capacity = other.capacity();
         _multiplicativeCoef = other._multiplicativeCoef;
-        this->_data = other._data;
+        _data = new Value[_capacity];
+        for (int i = 0; i < _size; ++i)
+        {
+            _data[i] = other[i];
+        }
         other._size = 0;
         other._capacity = 0;
         other._multiplicativeCoef = 2.0f;
+        delete [] other._data;
         other._data = nullptr;
     }
 }
@@ -290,7 +295,7 @@ void Vector::erase(size_t pos, size_t count)
         Value* tmp = new Value[_size];
         int j = 0;
         for (int i = 0; i < _size + count; ++i)
-        {
+        {   
             if (i >= pos && j < count)
             {
                 ++j;
