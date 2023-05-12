@@ -96,7 +96,7 @@ Vector::Vector(Vector&& other) noexcept
         other._size = 0;
         other._capacity = 0;
         other._multiplicativeCoef = 2.0f;
-        other._data = nullptr;
+        //other._data = nullptr;
     }
 }
 
