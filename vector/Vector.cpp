@@ -74,7 +74,7 @@ Vector& Vector::operator=(const Vector& other)
             delete [] this->_data;
         }
         _size = other.size();
-        _capacity = other.capacity();
+        _capacity = other.size();
         _multiplicativeCoef = other._multiplicativeCoef;
         this->_data = new Value[_size];
         for (int i = 0; i < _size; ++i)
@@ -90,7 +90,7 @@ Vector::Vector(Vector&& other) noexcept
     if (this != &other)
     {
         _size = other.size();
-        _capacity = other.capacity();
+        _capacity = other.size();
         _multiplicativeCoef = other._multiplicativeCoef;
         this->_data = other._data;
         other._size = 0;
@@ -106,7 +106,7 @@ Vector& Vector::operator=(Vector&& other) noexcept
     {
         delete [] this->_data;
         _size = other.size();
-        _capacity = other.capacity();
+        _capacity = other.size();
         this->_multiplicativeCoef = other._multiplicativeCoef;
         this->_data = other._data;
         other._capacity = 0;
