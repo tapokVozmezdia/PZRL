@@ -181,7 +181,7 @@ void Vector::popBack()
         throw std::out_of_range ("Pop Back on empty vector!");
     }
     _size -= 1;
-    Value* tmp = new Value[_size];
+    Value* tmp = new Value[_capacity];
     for (int i = 0; i < _size; ++i)
     {
         tmp[i] = _data[i];
@@ -197,7 +197,7 @@ void Vector::popFront()
         throw std::out_of_range ("Pop Front on empty vector!");
     }
     _size -= 1;
-    Value* tmp = new Value[_size];
+    Value* tmp = new Value[_capacity];
     for (int i = 1; i < _size + 1; ++i)
     {
         tmp[i - 1] = _data[i];
@@ -238,7 +238,7 @@ void Vector::insert(const Value& value, size_t pos)
     }
     int j = 0;
     ++_size;
-    Value* tmp = new Value[_size];
+    Value* tmp = new Value[_capacity];
     for (int i = 0; i < _size; ++i)
     {
         if (pos == i)
