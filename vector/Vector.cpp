@@ -35,9 +35,9 @@ Vector::Vector(const Vector& other)
     if (this != &other)
     {
         _size = other.size();
-        _capacity = other.capacity();
+        _capacity = other.size();
         _multiplicativeCoef = other._multiplicativeCoef;
-        this->_data = new Value[_capacity];
+        this->_data = new Value[_size];
         for (int i = 0; i < _size; ++i)
         {
             _data[i] = other[i];
