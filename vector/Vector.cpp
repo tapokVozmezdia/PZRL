@@ -13,7 +13,7 @@ size_t Vector::capacity() const
 
 double Vector::loadFactor() const
 {
-    return _size / _capacity;
+    return static_cast<double>(_size) / static_cast<double>(_capacity);
 }
 
 Vector::Vector(const Value* rawArray, const size_t size, float coef)
@@ -206,7 +206,7 @@ void Vector::popFront()
     _data = tmp;
 }
 
-void Vector::insert(const Value& value, size_t pos)
+/*void Vector::insert(const Value& value, size_t pos)
 {
     _size += 1;
     _capacity = _size;
@@ -224,6 +224,33 @@ void Vector::insert(const Value& value, size_t pos)
     }
     delete [] _data;
     _data = tmp;    
+}*/
+
+void Vector::insert(const Value& value, size_t pos)
+{
+    if (_size == 0)
+    {
+        this->reserve(_multiplicativeCoef);
+    }
+    else if (this->loadFactor() == 1)
+    {
+        this->reserve(_size * _multiplicativeCoef);
+    }
+    int j = 0;
+    ++_size;
+    Value* tmp = new Value[_size];
+    for (int i = 0; i < _size; ++i)
+    {
+        if (pos == i)
+        {
+            j++;
+            tmp[i] = value;
+            continue;
+        }
+        tmp[i] = _data[i - j];
+    }
+    delete [] _data;
+    _data = tmp;
 }
 
 void Vector::insert(const Value* values, size_t size, size_t pos)
