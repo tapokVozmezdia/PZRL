@@ -181,13 +181,13 @@ void Vector::popBack()
         throw std::out_of_range ("Pop Back on empty vector!");
     }
     _size -= 1;
-    Value* tmp = new Value[_capacity];
+    /*Value* tmp = new Value[_capacity];
     for (int i = 0; i < _size; ++i)
     {
         tmp[i] = _data[i];
     }
     delete [] _data;
-    _data = tmp;
+    _data = tmp;*/
 }
 
 void Vector::popFront()
