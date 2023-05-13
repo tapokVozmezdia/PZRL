@@ -1,5 +1,6 @@
 #include "Vector.h"
 #include <stdexcept>
+#include <cstring>
 
 size_t Vector::size() const
 {
@@ -163,15 +164,17 @@ void Vector::pushFront(const Value& value)
     {
         this->reserve(_size * _multiplicativeCoef);
     }
+    memmove(_data + 1, _data, _size * sizeof(Value)); 
+    *this->begin() = value;
     _size += 1;
-    Value* tmp = new Value[_capacity];
+    /*Value* tmp = new Value[_capacity];
     for (int i = 1; i < _size; ++i)
     {
         tmp[i] = _data[i - 1];
     }
     tmp[0] = value;
     delete [] _data;
-    _data = tmp;
+    _data = tmp;*/
 }
 
 void Vector::popBack()
