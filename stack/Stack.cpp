@@ -72,6 +72,7 @@ Stack::Stack(const Stack& copyStack)
     }
     ValueType* tmp = new ValueType[copyStack.size()];
     size_t size_tmp = copyStack.size();
+    
     for (int i = 0; i < size_tmp; ++i)
     {
         tmp[i] = copyStack.top();
@@ -80,6 +81,9 @@ Stack::Stack(const Stack& copyStack)
     for (int i = 0; i < size_tmp; ++i)
     {
         copyStack._pimpl->push(tmp[size_tmp - 1 - i]);
+    }
+    for (int i = 0; i < size_tmp; ++i)
+    {
         this->_pimpl->push(tmp[size_tmp - 1 - i]);
     }
     delete [] tmp;
