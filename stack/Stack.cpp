@@ -80,11 +80,11 @@ Stack::Stack(const Stack& copyStack)
     }
     for (int i = 0; i < size_tmp; ++i)
     {
-        copyStack._pimpl->push(tmp[size_tmp - 1 - i]);
+        this->_pimpl->push(tmp[size_tmp - 1 - i]);
     }
     for (int i = 0; i < size_tmp; ++i)
     {
-        this->_pimpl->push(tmp[size_tmp - 1 - i]);
+        copyStack._pimpl->push(tmp[size_tmp - 1 - i]);
     }
     delete [] tmp;
 }
