@@ -10,6 +10,7 @@ void printVector(Vector &vector)
         std::cout << "\t" << vector[i];
     }
     std::cout << std::endl;
+    std::cout << "\t SIZE: " << vector.size() << std::endl;
 }
 
 void cleanVector(Vector &vector)
@@ -24,55 +25,29 @@ void cleanVector(Vector &vector)
 int main()
 {
     int ar[3] = {11,22,33};
-    //std::cout << ar[1] << std::endl;
-    Vector newVector(ar, 3, 2.);
-    //std::cout << "In vector 2: "<< newVector[2] << std::endl;
-    Vector newerVector(newVector);
-    //std::cout << "In vector 2: "<< newVector[2] << std::endl;
-    Vector testVector;
-    /*testVector.pushBack(111);
-    testVector.pushBack(131);
-    testVector.pushBack(121);
-    testVector.pushFront(-82);
-    testVector.pushFront(-22);
-    testVector.pushBack(1000);
-    printVector(testVector);
-    testVector.popBack();
-    printVector(testVector);
-    testVector.popFront();
-    printVector(testVector);
-    testVector.insert(1488, 2);
-    printVector(testVector);
-    testVector.insert(ar, 3, 2);
-    printVector(testVector);
-    cleanVector(testVector);
-    testVector.insert(ar, 3, 0);
-    printVector(testVector);
-    Vector testVector_dup(testVector);
-    printVector(testVector_dup);
-    testVector.insert(testVector_dup, 1);
-    printVector(testVector);
-    */
-    int mas[3] = {11, 22, 33};
-    Vector myVector(mas, 3, 1);
-    printVector(myVector);
-    Vector hisVector(myVector);
-    printVector(hisVector);
-    myVector.insert(hisVector, 1);
-    printVector(myVector);
-    myVector.erase(2, 3);
-    printVector(myVector);
-    myVector.erase(1, 10);
-    printVector(myVector);
-    myVector.insert(hisVector, 1);
-    printVector(myVector);
-    myVector.eraseBetween(1,2);
-    printVector(myVector);
-    myVector.eraseBetween(1,10);
-    printVector(myVector);
-    myVector.insert(hisVector, 1);
-    printVector(myVector);
-    std::cout << myVector.find(11) << std::endl;
-    std::cout << myVector.find(33) << std::endl;
+    int ar1[1] = {1};
+    Vector v(ar, 3);
+    Vector s(ar, 3);
+    printVector(v);
+    v.insert(111, 3);
+    printVector(v);
+    v.insert(ar, 3, 4);
+    printVector(v);
+    v.insert(s, 0);
+    printVector(v);
+    v.eraseBetween(2,4);
+    printVector(v);
+    v.popBack();
+    v.popFront();
+    printVector(v);
+    v.erase(0, 5);
+    printVector(v);
+    v.pushBack(11);
+    v.pushFront(33);
+    printVector(v);
+    Vector i(ar1, 1);
+    v = std::move(i);
+    printVector(i);
+    printVector(v);
     return 0;
 }
