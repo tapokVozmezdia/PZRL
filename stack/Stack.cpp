@@ -70,8 +70,8 @@ Stack::Stack(const Stack& copyStack)
             throw std::runtime_error("Неизвестный тип контейнера");
         }
     }
-    ValueType* tmp = new ValueType[copyStack.size()];
-    size_t size_tmp = copyStack.size();
+    ValueType* tmp = new ValueType[copyStack._pimpl->size()];
+    size_t size_tmp = copyStack._pimpl->size();
     
     for (int i = 0; i < size_tmp; ++i)
     {
@@ -80,11 +80,8 @@ Stack::Stack(const Stack& copyStack)
     }
     for (int i = 0; i < size_tmp; ++i)
     {
-        this->_pimpl->push(tmp[size_tmp - 1 - i]);
-    }
-    for (int i = 0; i < size_tmp; ++i)
-    {
         copyStack._pimpl->push(tmp[size_tmp - 1 - i]);
+        this->_pimpl->push(tmp[size_tmp - 1 - i]);
     }
     delete [] tmp;
 }
@@ -116,8 +113,8 @@ Stack& Stack::operator=(const Stack& copyStack)
         }
     }
     Stack tmp_stack(copyStack);
-    ValueType* tmp = new ValueType[tmp_stack.size()];
-    size_t size_tmp = tmp_stack.size();
+    ValueType* tmp = new ValueType[tmp_stack._pimpl->size()];
+    size_t size_tmp = tmp_stack._pimpl->size();
     for (int i = 0; i < size_tmp; ++i)
     {
         tmp[i] = tmp_stack.top();
@@ -160,5 +157,5 @@ bool Stack::isEmpty() const
 
 size_t Stack::size() const
 {
-    return _pimpl->size();
+    return _pimpl->isEmpty();
 }
