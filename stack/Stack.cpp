@@ -111,16 +111,17 @@ Stack& Stack::operator=(const Stack& copyStack)
             throw std::runtime_error("Неизвестный тип контейнера");
         }
     }
-    ValueType* tmp = new ValueType[copyStack.size()];
-    size_t size_tmp = copyStack.size();
+    Stack tmp_stack(copyStack);
+    ValueType* tmp = new ValueType[tmp_stack.size()];
+    size_t size_tmp = tmp_stack.size();
     for (int i = 0; i < size_tmp; ++i)
     {
-        tmp[i] = copyStack.top();
-        copyStack._pimpl->pop();
+        tmp[i] = tmp_stack.top();
+        tmp_stack._pimpl->pop();
     }
     for (int i = 0; i < size_tmp; ++i)
     {
-        copyStack._pimpl->push(tmp[size_tmp - 1 - i]);
+        tmp_stack._pimpl->push(tmp[size_tmp - 1 - i]);
         this->_pimpl->push(tmp[size_tmp - 1 - i]);
     }
     delete [] tmp;
