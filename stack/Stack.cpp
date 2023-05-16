@@ -80,6 +80,7 @@ Stack::Stack(const Stack& copyStack)
             {
                 newData[copyStack.size() - i - 1] = tmp_list.top();
                 tmp_list.pop();
+                //std::cout<<copyStack.size()<<std::endl;
             }
             for (int i = 0; i < copyStack.size(); ++i)
             {
