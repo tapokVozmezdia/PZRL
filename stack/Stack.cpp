@@ -65,6 +65,9 @@ Stack::Stack(const Stack& copyStack)
             {
                 newData[copyStack.size() - i - 1] = tmp_vector.top();
                 tmp_vector.pop();
+            }
+            for (int i = 0; i < copyStack.size(); ++i)
+            {
                 _pimpl->push(newData[i]);
             }
             break;
@@ -77,6 +80,9 @@ Stack::Stack(const Stack& copyStack)
             {
                 newData[copyStack.size() - i - 1] = tmp_list.top();
                 tmp_list.pop();
+            }
+            for (int i = 0; i < copyStack.size(); ++i)
+            {
                 _pimpl->push(newData[i]);
             }
             break;
