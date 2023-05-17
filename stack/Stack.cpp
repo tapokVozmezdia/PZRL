@@ -59,7 +59,7 @@ Stack::Stack(const Stack& copyStack)
     {
         case StackContainer::Vector :
         {
-            VectorStack tmp_vector = *dynamic_cast<VectorStack*>(copyStack._pimpl);
+            VectorStack tmp_vector(*(dynamic_cast<VectorStack*>(copyStack._pimpl)));
             this->_pimpl = static_cast<IStackImplementation*>(new VectorStack());
             for (int i = 0; i < copyStack.size(); ++i)
             {
@@ -74,7 +74,7 @@ Stack::Stack(const Stack& copyStack)
         }
         case StackContainer::List :
         {
-            ListStack tmp_list = *dynamic_cast<ListStack*>(copyStack._pimpl);
+            ListStack tmp_list(*(dynamic_cast<ListStack*>(copyStack._pimpl)));
             this->_pimpl = static_cast<IStackImplementation*>(new ListStack());
             for (int i = 0; i < copyStack.size(); ++i)
             {
