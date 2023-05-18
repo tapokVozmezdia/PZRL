@@ -144,6 +144,40 @@ Stack& Stack::operator=(const Stack& copyStack)
     return *this;
 }
 
+Stack& Stack::operator=(Stack&& moveStack) noexcept
+{
+    *this = moveStack;
+    delete moveStack._pimpl;
+    moveStack._pimpl = nullptr;
+    return *this;
+}
+
+Stack::Stack(Stack&& moveStack) noexcept
+{
+    this->_containerType = moveStack._containerType;
+    switch (_containerType)
+    {
+        case StackContainer::Vector :
+        {
+            this->_pimpl = new VectorStack(*dynamic_cast<VectorStack*>(moveStack._pimpl));
+            this->_pimpl = dynamic_cast<IStackImplementation*>(_pimpl);
+            break;
+        }
+        case StackContainer::List :
+        {
+            this->_pimpl = new ListStack(*dynamic_cast<ListStack*>(moveStack._pimpl));
+            this->_pimpl = dynamic_cast<IStackImplementation*>(_pimpl);
+            break;
+        }
+        default :
+        {
+            throw std::runtime_error("Неизвестный тип контейнера");
+        }
+    }
+    delete moveStack._pimpl;
+    moveStack._pimpl = nullptr;
+}
+
 Stack::~Stack()
 {
     delete _pimpl;        // композиция!
