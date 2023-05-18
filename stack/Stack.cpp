@@ -60,7 +60,7 @@ Stack::Stack(const Stack& copyStack)
         case StackContainer::Vector :
         {
             //VectorStack tmp_vector(*(dynamic_cast<VectorStack*>(copyStack._pimpl)));
-            this->_pimpl = new VectorStack(*(dynamic_cast<VectorStack*>(copyStack._pimpl)));
+            this->_pimpl = dynamic_cast<IStackImplementation*>(new VectorStack(*(dynamic_cast<VectorStack*>(copyStack._pimpl))));
             //this->_pimpl = dynamic_cast<IStackImplementation*>(new VectorStack(*(dynamic_cast<VectorStack*>(copyStack._pimpl))));
             /*
             for (int i = 0; i < copyStack.size(); ++i)
@@ -80,7 +80,7 @@ Stack::Stack(const Stack& copyStack)
             //std::cout << "BORZOY" << std::endl;
             //ListStack tmp_list(*(dynamic_cast<ListStack*>(copyStack._pimpl)));
             //this->_pimpl = static_cast<IStackImplementation*>(new ListStack());
-            this->_pimpl = new ListStack(*(dynamic_cast<ListStack*>(copyStack._pimpl)));
+            this->_pimpl = dynamic_cast<IStackImplementation*>(new ListStack(*(dynamic_cast<ListStack*>(copyStack._pimpl))));
             //this->_pimpl = dynamic_cast<IStackImplementation*>(new ListStack(*(dynamic_cast<ListStack*>(copyStack._pimpl))));
             /*
             for (int i = 0; i < copyStack.size(); ++i)
