@@ -103,42 +103,45 @@ Stack::Stack(const Stack& copyStack)
 Stack& Stack::operator=(const Stack& copyStack)
 {
     // TODO: вставьте здесь оператор return
-    if (this->_pimpl != nullptr)
+    if (this->_pimpl != copyStack._pimpl)
     {
-        delete _pimpl;
-        _pimpl = nullptr;
-    }
-    this->_containerType = copyStack._containerType;
-    switch (_containerType)
-    {
-        case StackContainer::Vector :
+        if (this->_pimpl != nullptr)
         {
-            this->_pimpl = new VectorStack(*dynamic_cast<VectorStack*>(copyStack._pimpl));
-            break;
+            delete _pimpl;
+            _pimpl = nullptr;
         }
-        case StackContainer::List :
+        this->_containerType = copyStack._containerType;
+        switch (_containerType)
         {
-            this->_pimpl = new ListStack(*dynamic_cast<ListStack*>(copyStack._pimpl));
-            break;
+            case StackContainer::Vector :
+            {
+                this->_pimpl = new VectorStack(*dynamic_cast<VectorStack*>(copyStack._pimpl));
+                break;
+            }
+            case StackContainer::List :
+            {
+                this->_pimpl = new ListStack(*dynamic_cast<ListStack*>(copyStack._pimpl));
+                break;
+            }
+            default :
+            {
+                throw std::runtime_error("Неизвестный тип контейнера");
+            }
         }
-        default :
+        /*ValueType* tmp = new ValueType[tmp_stack.size()];
+        size_t size_tmp = tmp_stack.size();
+        for (int i = 0; i < size_tmp; ++i)
         {
-            throw std::runtime_error("Неизвестный тип контейнера");
+            tmp[i] = tmp_stack.top();
+            tmp_stack._pimpl->pop();
         }
+        for (int i = 0; i < size_tmp; ++i)
+        {
+            tmp_stack._pimpl->push(tmp[size_tmp - 1 - i]);
+            this->_pimpl->push(tmp[size_tmp - 1 - i]);
+        }
+        delete [] tmp;*/
     }
-    /*ValueType* tmp = new ValueType[tmp_stack.size()];
-    size_t size_tmp = tmp_stack.size();
-    for (int i = 0; i < size_tmp; ++i)
-    {
-        tmp[i] = tmp_stack.top();
-        tmp_stack._pimpl->pop();
-    }
-    for (int i = 0; i < size_tmp; ++i)
-    {
-        tmp_stack._pimpl->push(tmp[size_tmp - 1 - i]);
-        this->_pimpl->push(tmp[size_tmp - 1 - i]);
-    }
-    delete [] tmp;*/
     return *this;
 }
 
