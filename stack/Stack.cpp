@@ -60,7 +60,7 @@ Stack::Stack(const Stack& copyStack)
         case StackContainer::Vector :
         {
             //VectorStack tmp_vector(*(dynamic_cast<VectorStack*>(copyStack._pimpl)));
-            this->_pimpl = dynamic_cast<IStackImplementation*>(new VectorStack(*(dynamic_cast<VectorStack*>(copyStack._pimpl))));
+            this->_pimpl = new VectorStack(*(dynamic_cast<VectorStack*>(copyStack._pimpl)));
             //this->_pimpl = dynamic_cast<IStackImplementation*>(new VectorStack(*(dynamic_cast<VectorStack*>(copyStack._pimpl))));
             /*
             for (int i = 0; i < copyStack.size(); ++i)
@@ -80,7 +80,7 @@ Stack::Stack(const Stack& copyStack)
             //std::cout << "BORZOY" << std::endl;
             //ListStack tmp_list(*(dynamic_cast<ListStack*>(copyStack._pimpl)));
             //this->_pimpl = static_cast<IStackImplementation*>(new ListStack());
-            this->_pimpl = dynamic_cast<IStackImplementation*>(new ListStack(*(dynamic_cast<ListStack*>(copyStack._pimpl))));
+            this->_pimpl = new ListStack(*(dynamic_cast<ListStack*>(copyStack._pimpl)));
             //this->_pimpl = dynamic_cast<IStackImplementation*>(new ListStack(*(dynamic_cast<ListStack*>(copyStack._pimpl))));
             /*
             for (int i = 0; i < copyStack.size(); ++i)
@@ -112,25 +112,6 @@ Stack& Stack::operator=(const Stack& copyStack)
         _pimpl = nullptr;
     }
     this->_containerType = copyStack._containerType;
-    Stack* tmp = new Stack(copyStack);
-    this->_pimpl = tmp->_pimpl;
-    delete [] tmp;
-    /*switch (_containerType)
-    {
-        case StackContainer::Vector :
-        {   
-            break;
-        }
-        case StackContainer::List :
-        {
-            break;
-        }
-        default :
-        {
-
-        }
-    }
-    /*
     switch (_containerType)
     {
         case StackContainer::Vector :
@@ -161,7 +142,7 @@ Stack& Stack::operator=(const Stack& copyStack)
         tmp_stack._pimpl->push(tmp[size_tmp - 1 - i]);
         this->_pimpl->push(tmp[size_tmp - 1 - i]);
     }
-    delete [] tmp;*/
+    delete [] tmp;
     return *this;
 }
 
