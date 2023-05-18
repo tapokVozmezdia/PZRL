@@ -54,7 +54,7 @@ Stack::Stack(const ValueType* valueArray, const size_t arraySize, StackContainer
 Stack::Stack(const Stack& copyStack)
 {
     this->_containerType = copyStack._containerType;
-    ValueType* newData = new ValueType[copyStack.size()];
+    //ValueType* newData = new ValueType[copyStack.size()];
     switch (_containerType)
     {
         case StackContainer::Vector :
@@ -70,11 +70,13 @@ Stack::Stack(const Stack& copyStack)
             for (int i = 0; i < copyStack.size(); ++i)
             {
                 _pimpl->push(newData[i]);
-            }
-            break;*/
+            }*/
+            break;
+
         }
         case StackContainer::List :
         {
+            //std::cout << "BORZOY" << std::endl;
             //ListStack tmp_list(*(dynamic_cast<ListStack*>(copyStack._pimpl)));
             //this->_pimpl = static_cast<IStackImplementation*>(new ListStack());
             this->_pimpl = dynamic_cast<IStackImplementation*>(new ListStack(*(dynamic_cast<ListStack*>(copyStack._pimpl))));
@@ -88,15 +90,15 @@ Stack::Stack(const Stack& copyStack)
             for (int i = 0; i < copyStack.size(); ++i)
             {
                 _pimpl->push(newData[i]);
-            }
-            break;*/
+            }*/
+            break;
         }
         default :
         {
             throw std::runtime_error("Неизвестный тип контейнера");
         }
     }
-    delete [] newData;
+    //delete [] newData;
 }
 
 Stack& Stack::operator=(const Stack& copyStack)
