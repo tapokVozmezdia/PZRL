@@ -113,12 +113,12 @@ Stack& Stack::operator=(const Stack& copyStack)
     {
         case StackContainer::Vector :
         {
-            this->_pimpl = static_cast<IStackImplementation*>(new VectorStack());
+            //this->_pimpl = static_cast<IStackImplementation*>(new VectorStack());
             break;
         }
         case StackContainer::List :
         {
-            this->_pimpl = static_cast<IStackImplementation*>(new ListStack());
+            //this->_pimpl = static_cast<IStackImplementation*>(new ListStack());
             break;
         }
         default :
@@ -126,9 +126,22 @@ Stack& Stack::operator=(const Stack& copyStack)
             throw std::runtime_error("Неизвестный тип контейнера");
         }
     }
-    this->_pimpl = copyStack._pimpl;
-    /*Stack tmp_stack(copyStack);
-    ValueType* tmp = new ValueType[tmp_stack.size()];
+    Stack tmp_stack(copyStack);
+
+    switch(tmp_stack._containerType)
+    {
+        case StackContainer::List :
+        {
+            this->_pimpl = static_cast<IStackImplementation*>(new ListStack(*static_cast<ListStack*>(tmp_stack._pimpl)));
+            break;
+        }
+        case StackContainer::Vector :
+        {
+            this->_pimpl = static_cast<IStackImplementation*>(new VectorStack(*static_cast<VectorStack*>(tmp_stack._pimpl)));
+            break;
+        }
+    }
+    /*ValueType* tmp = new ValueType[tmp_stack.size()];
     size_t size_tmp = tmp_stack.size();
     for (int i = 0; i < size_tmp; ++i)
     {
