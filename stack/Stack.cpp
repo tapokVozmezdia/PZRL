@@ -127,7 +127,7 @@ Stack& Stack::operator=(const Stack& copyStack)
         }
     }
     Stack* tmp_stack = new Stack(copyStack);
-    delete _pimpl;
+    //delete _pimpl;
     this->_pimpl = tmp_stack->_pimpl;
     /*ValueType* tmp = new ValueType[tmp_stack.size()];
     size_t size_tmp = tmp_stack.size();
