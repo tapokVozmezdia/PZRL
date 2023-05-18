@@ -113,12 +113,12 @@ Stack& Stack::operator=(const Stack& copyStack)
     {
         case StackContainer::Vector :
         {
-            this->_pimpl = static_cast<IStackImplementation*>(new VectorStack());
+            this->_pimpl = new VectorStack(*dynamic_cast<VectorStack*>(copyStack._pimpl));
             break;
         }
         case StackContainer::List :
         {
-            this->_pimpl = static_cast<IStackImplementation*>(new ListStack());
+            this->_pimpl = new ListStack(*dynamic_cast<ListStack*>(copyStack._pimpl));
             break;
         }
         default :
@@ -126,21 +126,19 @@ Stack& Stack::operator=(const Stack& copyStack)
             throw std::runtime_error("Неизвестный тип контейнера");
         }
     }
-    Stack* tmp_stack = new Stack(copyStack);
-    ValueType* tmp = new ValueType[tmp_stack->size()];
-    size_t size_tmp = tmp_stack->size();
+    /*ValueType* tmp = new ValueType[tmp_stack.size()];
+    size_t size_tmp = tmp_stack.size();
     for (int i = 0; i < size_tmp; ++i)
     {
-        tmp[i] = tmp_stack->top();
-        tmp_stack->_pimpl->pop();
+        tmp[i] = tmp_stack.top();
+        tmp_stack._pimpl->pop();
     }
     for (int i = 0; i < size_tmp; ++i)
     {
-        tmp_stack->_pimpl->push(tmp[size_tmp - 1 - i]);
+        tmp_stack._pimpl->push(tmp[size_tmp - 1 - i]);
         this->_pimpl->push(tmp[size_tmp - 1 - i]);
     }
-    delete [] tmp;
-    delete tmp_stack;
+    delete [] tmp;*/
     return *this;
 }
 
