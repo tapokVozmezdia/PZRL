@@ -146,7 +146,45 @@ Stack& Stack::operator=(const Stack& copyStack)
 
 Stack& Stack::operator=(Stack&& moveStack) noexcept
 {
-    *this = moveStack;
+    // TODO: вставьте здесь оператор return
+    if (this->_pimpl != nullptr)
+    {
+        delete _pimpl;
+        _pimpl = nullptr;
+    }
+    this->_containerType = moveStack._containerType;
+    switch (_containerType)
+    {
+        case StackContainer::Vector :
+        {
+            this->_pimpl = static_cast<IStackImplementation*>(new VectorStack());
+            break;
+        }
+        case StackContainer::List :
+        {
+            this->_pimpl = static_cast<IStackImplementation*>(new ListStack());
+            break;
+        }
+        default :
+        {
+            throw std::runtime_error("Неизвестный тип контейнера");
+        }
+    }
+    Stack* tmp_stack = new Stack(moveStack);
+    ValueType* tmp = new ValueType[tmp_stack->size()];
+    size_t size_tmp = tmp_stack->size();
+    for (int i = 0; i < size_tmp; ++i)
+    {
+        tmp[i] = tmp_stack->top();
+        tmp_stack->_pimpl->pop();
+    }
+    for (int i = 0; i < size_tmp; ++i)
+    {
+        tmp_stack->_pimpl->push(tmp[size_tmp - 1 - i]);
+        this->_pimpl->push(tmp[size_tmp - 1 - i]);
+    }
+    delete [] tmp;
+    delete tmp_stack;
     delete moveStack._pimpl;
     moveStack._pimpl = nullptr;
     return *this;
