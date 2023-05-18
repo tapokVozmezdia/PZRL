@@ -22,4 +22,3 @@ public:
     // виртуальный деструктор
     virtual ~IStackImplementation() = default;
 };
-

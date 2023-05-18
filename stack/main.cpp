@@ -34,7 +34,7 @@ int main()
     //std::cout << getTop(_data) << std::endl;
 
     double ar[3] = {1, 2, 3};
-    std::cout << "KRISK" << std::endl;
+    //std::cout << "KRISK" << std::endl;
     Stack myStack(ar, 3, StackContainer::List);
     std::cout << myStack.top() << std::endl;
     myStack.push(111);
@@ -42,7 +42,17 @@ int main()
     Stack newStack(myStack);
     std::cout << newStack.top() << std::endl;
     newStack.pop();
+    myStack = newStack;
+    Stack wackStack;
+    wackStack = newStack;
     std::cout << myStack.top() << std::endl;
     std::cout << newStack.top() << std::endl;
+    std::cout << wackStack.top() << std::endl;
+    /*newStack.pop();
+    std::cout << myStack.top() << std::endl;
+    std::cout << newStack.top() << std::endl;
+    myStack = newStack;
+    std::cout << myStack.top() << std::endl;
+    std::cout << newStack.top() << std::endl;*/
     return 0;
 }
