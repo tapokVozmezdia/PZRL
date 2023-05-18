@@ -140,6 +140,10 @@ Stack& Stack::operator=(const Stack& copyStack)
             this->_pimpl = static_cast<IStackImplementation*>(new VectorStack(*static_cast<VectorStack*>(tmp_stack._pimpl)));
             break;
         }
+        default :
+        {
+            throw std::runtime_error("Неизвестный тип контейнера");
+        }
     }
     /*ValueType* tmp = new ValueType[tmp_stack.size()];
     size_t size_tmp = tmp_stack.size();
