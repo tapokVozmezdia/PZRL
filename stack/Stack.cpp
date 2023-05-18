@@ -112,6 +112,25 @@ Stack& Stack::operator=(const Stack& copyStack)
         _pimpl = nullptr;
     }
     this->_containerType = copyStack._containerType;
+    Stack* tmp = new Stack(copyStack);
+    this->_pimpl = tmp->_pimpl;
+    delete [] tmp;
+    /*switch (_containerType)
+    {
+        case StackContainer::Vector :
+        {   
+            break;
+        }
+        case StackContainer::List :
+        {
+            break;
+        }
+        default :
+        {
+
+        }
+    }
+    /*
     switch (_containerType)
     {
         case StackContainer::Vector :
@@ -142,7 +161,7 @@ Stack& Stack::operator=(const Stack& copyStack)
         tmp_stack._pimpl->push(tmp[size_tmp - 1 - i]);
         this->_pimpl->push(tmp[size_tmp - 1 - i]);
     }
-    delete [] tmp;
+    delete [] tmp;*/
     return *this;
 }
 
