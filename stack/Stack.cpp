@@ -113,12 +113,12 @@ Stack& Stack::operator=(const Stack& copyStack)
     {
         case StackContainer::Vector :
         {
-            //this->_pimpl = static_cast<IStackImplementation*>(new VectorStack());
+            this->_pimpl = static_cast<IStackImplementation*>(new VectorStack());
             break;
         }
         case StackContainer::List :
         {
-            //this->_pimpl = static_cast<IStackImplementation*>(new ListStack());
+            this->_pimpl = static_cast<IStackImplementation*>(new ListStack());
             break;
         }
         default :
