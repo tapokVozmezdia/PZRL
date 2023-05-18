@@ -54,12 +54,14 @@ Stack::Stack(const ValueType* valueArray, const size_t arraySize, StackContainer
 Stack::Stack(const Stack& copyStack)
 {
     this->_containerType = copyStack._containerType;
-    ValueType* newData = new ValueType[copyStack.size()];
+    //ValueType* newData = new ValueType[copyStack.size()];
     switch (_containerType)
     {
         case StackContainer::Vector :
         {
-            VectorStack tmp_vector(*(dynamic_cast<VectorStack*>(copyStack._pimpl)));
+            this->_pimpl = new VectorStack(*dynamic_cast<VectorStack*>(copyStack._pimpl));
+            this->_pimpl = dynamic_cast<IStackImplementation*>(_pimpl);
+            /*VectorStack tmp_vector(*(dynamic_cast<VectorStack*>(copyStack._pimpl)));
             this->_pimpl = static_cast<IStackImplementation*>(new VectorStack());
             for (int i = 0; i < copyStack.size(); ++i)
             {
@@ -69,12 +71,14 @@ Stack::Stack(const Stack& copyStack)
             for (int i = 0; i < copyStack.size(); ++i)
             {
                 _pimpl->push(newData[i]);
-            }
+            }*/
             break;
         }
         case StackContainer::List :
         {
-            ListStack tmp_list(*(dynamic_cast<ListStack*>(copyStack._pimpl)));
+            this->_pimpl = new ListStack(*dynamic_cast<ListStack*>(copyStack._pimpl));
+            this->_pimpl = dynamic_cast<IStackImplementation*>(_pimpl);
+            /*ListStack tmp_list(*(dynamic_cast<ListStack*>(copyStack._pimpl)));
             this->_pimpl = static_cast<IStackImplementation*>(new ListStack());
             for (int i = 0; i < copyStack.size(); ++i)
             {
@@ -85,7 +89,7 @@ Stack::Stack(const Stack& copyStack)
             for (int i = 0; i < copyStack.size(); ++i)
             {
                 _pimpl->push(newData[i]);
-            }
+            }*/
             break;
         }
         default :
@@ -93,7 +97,7 @@ Stack::Stack(const Stack& copyStack)
             throw std::runtime_error("Неизвестный тип контейнера");
         }
     }
-    delete [] newData;
+    //delete [] newData;
 }
 
 Stack& Stack::operator=(const Stack& copyStack)
