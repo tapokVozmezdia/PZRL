@@ -59,8 +59,9 @@ Stack::Stack(const Stack& copyStack)
     {
         case StackContainer::Vector :
         {
-            VectorStack tmp_vector(*(dynamic_cast<VectorStack*>(copyStack._pimpl)));
-            this->_pimpl = static_cast<IStackImplementation*>(new VectorStack());
+            //VectorStack tmp_vector(*(dynamic_cast<VectorStack*>(copyStack._pimpl)));
+            this->_pimpl = dynamic_cast<IStackImplementation*>(new VectorStack(*(dynamic_cast<VectorStack*>(copyStack._pimpl))));
+            /*
             for (int i = 0; i < copyStack.size(); ++i)
             {
                 newData[copyStack.size() - i - 1] = tmp_vector.top();
@@ -70,12 +71,14 @@ Stack::Stack(const Stack& copyStack)
             {
                 _pimpl->push(newData[i]);
             }
-            break;
+            break;*/
         }
         case StackContainer::List :
         {
-            ListStack tmp_list(*(dynamic_cast<ListStack*>(copyStack._pimpl)));
-            this->_pimpl = static_cast<IStackImplementation*>(new ListStack());
+            //ListStack tmp_list(*(dynamic_cast<ListStack*>(copyStack._pimpl)));
+            //this->_pimpl = static_cast<IStackImplementation*>(new ListStack());
+            this->_pimpl = dynamic_cast<IStackImplementation*>(new ListStack(*(dynamic_cast<ListStack*>(copyStack._pimpl))));
+            /*
             for (int i = 0; i < copyStack.size(); ++i)
             {
                 newData[copyStack.size() - i - 1] = tmp_list.top();
@@ -86,7 +89,7 @@ Stack::Stack(const Stack& copyStack)
             {
                 _pimpl->push(newData[i]);
             }
-            break;
+            break;*/
         }
         default :
         {
