@@ -105,40 +105,16 @@ Stack& Stack::operator=(const Stack& copyStack)
         _pimpl = nullptr;
     }
     this->_containerType = copyStack._containerType;
-    ValueType* newData = new ValueType[copyStack.size()];
     switch (_containerType)
     {
         case StackContainer::Vector :
         {
-            //this->_pimpl = static_cast<IStackImplementation*>(new VectorStack());
-            VectorStack tmp_vector(*(dynamic_cast<VectorStack*>(copyStack._pimpl)));
             this->_pimpl = static_cast<IStackImplementation*>(new VectorStack());
-            for (int i = 0; i < copyStack.size(); ++i)
-            {
-                newData[copyStack.size() - i - 1] = tmp_vector.top();
-                tmp_vector.pop();
-            }
-            for (int i = 0; i < copyStack.size(); ++i)
-            {
-                _pimpl->push(newData[i]);
-            }
             break;
         }
         case StackContainer::List :
         {
-            //this->_pimpl = static_cast<IStackImplementation*>(new ListStack());
-            ListStack tmp_list(*(dynamic_cast<ListStack*>(copyStack._pimpl)));
             this->_pimpl = static_cast<IStackImplementation*>(new ListStack());
-            for (int i = 0; i < copyStack.size(); ++i)
-            {
-                newData[copyStack.size() - i - 1] = tmp_list.top();
-                tmp_list.pop();
-                //std::cout<<copyStack.size()<<std::endl;
-            }
-            for (int i = 0; i < copyStack.size(); ++i)
-            {
-                _pimpl->push(newData[i]);
-            }
             break;
         }
         default :
@@ -146,8 +122,7 @@ Stack& Stack::operator=(const Stack& copyStack)
             throw std::runtime_error("Неизвестный тип контейнера");
         }
     }
-    delete [] newData;
-    /*Stack tmp_stack(copyStack);
+    Stack tmp_stack(copyStack);
     ValueType* tmp = new ValueType[tmp_stack.size()];
     size_t size_tmp = tmp_stack.size();
     for (int i = 0; i < size_tmp; ++i)
@@ -160,7 +135,7 @@ Stack& Stack::operator=(const Stack& copyStack)
         tmp_stack._pimpl->push(tmp[size_tmp - 1 - i]);
         this->_pimpl->push(tmp[size_tmp - 1 - i]);
     }
-    delete [] tmp;*/
+    delete [] tmp;
     return *this;
 }
 
