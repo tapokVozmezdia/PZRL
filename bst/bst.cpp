@@ -296,7 +296,9 @@ Node* BinarySearchTree::find(Key key, Node* node) const{
 
 std::pair<BinarySearchTree::Iterator, BinarySearchTree::Iterator> BinarySearchTree::equalRange(const Key& key) {
     Node* firstKey = findKey(key);
-    return std::pair<BinarySearchTree::Iterator, BinarySearchTree::Iterator> (Iterator(_root), Iterator(_root));
+    Iterator secondKey(firstKey);
+    secondKey++;
+    return std::pair<BinarySearchTree::Iterator, BinarySearchTree::Iterator> (Iterator(firstKey), secondKey);
 }
 
 BinarySearchTree::Iterator BinarySearchTree::min(const Key& key) const {
