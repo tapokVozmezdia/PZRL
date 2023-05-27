@@ -379,15 +379,72 @@ BinarySearchTree::Iterator BinarySearchTree::Iterator::operator++() {
 }
 
 BinarySearchTree::Iterator BinarySearchTree::Iterator::operator++(int count) {
-
+    Node* tmp = nullptr;
+    if (_node->right) {
+        tmp = _node->right;
+        while(tmp->left) {
+            tmp = tmp->left;
+        }
+        _node = tmp;
+        return *this;
+    }
+    else {
+        tmp = _node;
+        while(tmp->parent) {
+            tmp = tmp->parent;
+            if (tmp->keyValuePair.first > _node->keyValuePair.first) {
+                _node = tmp;
+                return *this;
+            }
+        }
+        return *this;
+    }
 }
 
 BinarySearchTree::Iterator BinarySearchTree::Iterator::operator--() {
-
+    Node* tmp = nullptr;
+    if (_node->left) {
+        tmp = _node->left;
+        while(tmp->right) {
+            tmp = tmp->right;
+        }
+        _node = tmp;
+        return *this;
+    }
+    else {
+        tmp = _node;
+        while (tmp->parent)
+        {
+            tmp = tmp->parent;
+            if (tmp->keyValuePair.first < _node->keyValuePair.first) {
+                _node = tmp;
+                return *this;
+            }
+        }
+    }
 }
 
 BinarySearchTree::Iterator BinarySearchTree::Iterator::operator--(int count) {
-
+    Node* tmp = nullptr;
+    if (_node->left) {
+        tmp = _node->left;
+        while(tmp->right) {
+            tmp = tmp->right;
+        }
+        _node = tmp;
+        return *this;
+    }
+    else {
+        tmp = _node;
+        while (tmp->parent)
+        {
+            tmp = tmp->parent;
+            if (tmp->keyValuePair.first < _node->keyValuePair.first) {
+                _node = tmp;
+                return *this;
+            }
+        }
+    }
 }
 
 bool BinarySearchTree::Iterator::operator==(const Iterator& other) const {
