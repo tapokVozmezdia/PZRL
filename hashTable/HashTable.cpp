@@ -13,9 +13,95 @@ HashTable::HashTable(size_t size) noexcept
     }
 }
 
+HashTable::HashTable(const HashTable& other)
+{
+    this->_capacity = other._capacity;
+    for (int i = 0; i < this->_capacity; ++i)
+    {
+        auto tmp = other.table[i];
+        this->table.push_back(tmp);
+    }
+    this->_filled = other._filled;
+}
+
+HashTable& HashTable::operator=(const HashTable& other)
+{
+    while (this->table.size() > 0)
+    {
+        this->table.pop_back();
+    }
+    this->_filled = 0;
+    this->_capacity = other._capacity;
+    for (int i = 0; i < this->_capacity; ++i)
+    {
+        auto tmp = other.table[i];
+        this->table.push_back(tmp);
+    }
+    this->_filled = other._filled;
+    return *this;
+}
+
+HashTable::HashTable(HashTable&& other) noexcept
+{
+    this->_capacity = other._capacity;
+    for (int i = 0; i < this->_capacity; ++i)
+    {
+        auto tmp = other.table[i];
+        this->table.push_back(tmp);
+    }
+    this->_filled = other._filled;
+    while (other.table.size() > 0)
+    {
+        auto i = other.table.end();
+        while ((*i).size() > 0)
+        {
+            (*i).pop_back();
+        }
+        other.table.pop_back();
+    }
+    other._filled = 0;
+}
+
+HashTable& HashTable::operator=(HashTable&& other) noexcept
+{
+    while (this->table.size() > 0)
+    {
+        this->table.pop_back();
+    }
+    this->_filled = 0;
+    this->_capacity = other._capacity;
+    auto it = other.table.begin();
+    while(it != other.table.end())
+    {
+        this->table.push_back(*it);
+        it++;
+    }
+    this->_filled = other._filled;
+    while (other.table.size() > 0)
+    {
+        auto i = other.table.end();
+        while ((*i).size() > 0)
+        {
+            (*i).pop_back();
+        }
+        other.table.pop_back();
+    }
+    other._filled = 0;
+    return *this;
+}
+
 HashTable::~HashTable()
 {
-    
+    while (this->table.size() > 0)
+    {
+        auto i = this->table.end();
+        while ((*i).size() > 0)
+        {
+            (*i).pop_back();
+        }
+        this->table.pop_back();
+    }
+    this->_filled = 0;
 }
 
 bool HashTable::find(const KeyType &key, const ValueType &value) const

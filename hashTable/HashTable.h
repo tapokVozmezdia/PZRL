@@ -15,6 +15,17 @@ public:
     //! Деструктор
     ~HashTable();
 
+    //Свои конструкторы
+
+    //! Копирование
+    explicit HashTable(const HashTable& other);
+    HashTable& operator=(const HashTable& other);
+    //! Перемещение
+    explicit HashTable(HashTable&& other) noexcept;
+    HashTable& operator=(HashTable&& other) noexcept;
+
+    //Конец своих конструкторов и операторов
+
     //! Вставка элемента в хеш-таблицу
     //! Если при вставке обнаруживается, что LoadFactor таблицы превышает 0.75, то таблица расширяется в 2 раза.
     void insert(const KeyType &key, const ValueType &value);
@@ -32,8 +43,6 @@ public:
     //! Загрузка хеш-таблицы. Считается как отношение количества занятых ячеек к вместимости хеш-таблицы.
     double getLoadFactor();
 
-    size_t hash_function(const KeyType &key) const; 
-
 private:
     int32_t _capacity = 100;  //!< Вместимость хеш-таблицы
     int32_t _filled = 0;    //!< Текущее количество занятых ячеек хеш-таблицы
@@ -41,5 +50,5 @@ private:
     //! Структура, на которой основана таблица с методом цепочек для решения коллизий
     std::vector<std::list<std::pair<KeyType, ValueType>>> table;
     //! Хеш-функция
-    //size_t hash_function(const KeyType &key) const; 
+    size_t hash_function(const KeyType &key) const; 
 };

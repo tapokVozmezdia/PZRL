@@ -15,5 +15,15 @@ int main()
     std::cout << table.getLoadFactor() << std::endl;
     std::cout << table["one hundred and one"] << std::endl;
     std::cout << table["one"] << std::endl;
+    HashTable newTable(table);
+    //newTable = std::move(table);
+    std::cout << "\tFIRST TABLE" << std::endl;
+    std::cout << table.getLoadFactor() << std::endl;
+    //std::cout << table["one hundred and one"] << std::endl;
+    //std::cout << table["one"] << std::endl;
+    std::cout << "\tSECOND TABLE" << std::endl;
+    std::cout << newTable.getLoadFactor() << std::endl;
+    std::cout << newTable["one hundred and one"] << std::endl;
+    std::cout << newTable["one"] << std::endl;
     return 0;
 }
