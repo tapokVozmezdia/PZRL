@@ -25,5 +25,15 @@ int main()
     std::cout << newTable.getLoadFactor() << std::endl;
     std::cout << newTable["one hundred and one"] << std::endl;
     std::cout << newTable["one"] << std::endl;
+    HashTable myTable(3);
+    myTable.insert("one", 1);
+    myTable.insert("one hundred and one", 101);
+    std::cout << myTable.capacity() << std::endl;
+    myTable.insert("seven", 7);
+    myTable.insert("one1", 1);
+    myTable.insert("one hundred and one1", 101);
+    myTable.insert("seven1", 7);
+    std::cout << myTable.capacity() << std::endl;
+    std::cout << "I HAVE TERMINATED" << std::endl;
     return 0;
 }

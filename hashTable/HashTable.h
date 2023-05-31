@@ -24,6 +24,8 @@ public:
     explicit HashTable(HashTable&& other) noexcept;
     HashTable& operator=(HashTable&& other) noexcept;
 
+    size_t capacity() const;
+
     //Конец своих конструкторов и операторов
 
     //! Вставка элемента в хеш-таблицу

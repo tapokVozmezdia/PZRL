@@ -2,6 +2,11 @@
 #include <iostream>
 #include <stdexcept>
 
+void degug()
+{
+    std::cout << "Debug" << std::endl;
+}
+
 HashTable::HashTable(size_t size) noexcept
 {
     this->_capacity = size;
@@ -122,16 +127,56 @@ bool HashTable::find(const KeyType &key, const ValueType &value) const
 void HashTable::insert(const KeyType& key, const ValueType& value)
 {
     size_t hash = hash_function(key);
+    auto tmp_it = table[hash % this->_capacity].begin();
+    while(tmp_it != table[hash % this->_capacity].end())
+    {
+        if ((*tmp_it).first == key)
+        {
+            (*tmp_it).second = value;
+            this->_filled++;
+            return;
+        }
+    }
     table[hash % this->_capacity].push_back(std::pair<KeyType, ValueType>(key, value));
     _filled++;
     if (this->getLoadFactor() > 0.75)
     {
-        this->_capacity *= 2;
-        for (int i = this->_filled; i < this->_capacity; ++i)
+        std::list<std::pair<KeyType, ValueType>> tmp;
+        for (int i = 0; i < table.size(); ++i)
         {
-            auto tmp = new std::list<std::pair<KeyType, ValueType>>;
-            this->table.push_back(*tmp);
-            delete tmp;
+            if (this->table[i].size() > 0)
+            {
+                auto n_it = table[i].begin();
+                for (int i = 0; i < this->table[i].size(); ++i)
+                {
+                    tmp.push_back(*(n_it));
+                    n_it++;
+                }
+                /*
+                auto it = this->table[i].begin();
+                while(it != this->table[i].end())
+                {
+                    degug();
+                    tmp.push_back(*it);
+                    it++;
+                }*/
+            }
+        }
+        this->_capacity *= 2;
+        this->table.clear();
+        for (int i = 0; i < this->_capacity; ++i)
+        {
+            auto tmp_cell = new std::list<std::pair<KeyType, ValueType>>;
+            this->table.push_back(*tmp_cell);
+            delete tmp_cell;
+        }
+        auto it = tmp.begin();
+        while (it != tmp.end())
+        {
+            size_t hash_tmp = hash_function((*it).first);
+            this->table[hash_tmp % this->_capacity].push_back(std::pair<KeyType, ValueType>((*it).first, (*it).second));
+            this->_filled++;
+            it++;
         }
     }
 }
@@ -185,4 +230,9 @@ size_t HashTable::hash_function(const KeyType& key) const // FOR STD::STRING ONL
         factor++;
     }
     return hash;
+}
+
+size_t HashTable::capacity() const
+{
+    return this->_capacity;
 }
